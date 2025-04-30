@@ -4,7 +4,7 @@ import hikvisionStyle from './Hikvision.module.css';
 import fetchWithToken from '../utils/fetchWithToken';
 import { useState, useEffect } from 'react';
 import { Modal } from 'antd';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import burgerMenu from '../assets/burger-menu.png';
 import TextField from '@mui/material/TextField';
 const Hikvision = () => {
   const [hikvision, setHikvision] = useState([]);
@@ -80,7 +80,7 @@ const Hikvision = () => {
                       <div style={{ position: 'relative' }}>
                         <img
                           className={hikvisionStyle['burger-img']}
-                          src="./src/assets/burger-menu.png"
+                          src={burgerMenu}
                           alt="burger menu"
                           onClick={() =>
                             setDropdownOpenIndex(dropdownOpenIndex === index ? null : index)

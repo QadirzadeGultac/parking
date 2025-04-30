@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import BASE_URL from '../config';
+import logo from '../assets/logo.jpg';
+import backgroundVideo from '../assets/backgraung.mp4'; // videonu da import et
+
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false); // Yüklənmə göstəricisi
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -26,8 +29,8 @@ const Login = () => {
 
       if (response.ok) {
         console.log("Login Success:", data);
-        localStorage.setItem("token", data.token); // Tokeni yadda saxla
-        navigate("/dashboard"); // Dashboard səhifəsinə yönləndir
+        localStorage.setItem("token", data.token);
+        navigate("/dashboard");
       } else {
         alert(data.message || "Yanlış istifadəçi adı və ya şifrə");
       }
@@ -41,11 +44,11 @@ const Login = () => {
   return (
     <div className={styles.main}>
       <video autoPlay muted loop className={styles.backgroundvideo}>
-  <source src="./src/assets/backgraung.mp4" type="video/mp4" />
-</video>
+        <source src={backgroundVideo} type="video/mp4" />
+      </video>
 
       <div className={styles.loginmain}>
-        <img src="./src/assets/logo.jpg" alt="NMSoft" />
+        <img src={logo} alt="NMSoft" />
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
           <input

@@ -1,29 +1,37 @@
-import React, { useState } from 'react'
-import { useNavigate, Outlet } from 'react-router-dom' // burada Outlet import etdim
-import menustyle from './Menyu.module.css'
+import React, { useState } from 'react';
+import { useNavigate, Outlet } from 'react-router-dom';
+import menustyle from './Menyu.module.css';
+
+// Şəkilləri import edirik
+import logo from '../assets/logo.jpg';
+import residentsWhite from '../assets/residents-white.png';
+import residentsBlue from '../assets/residents-blue.png';
+import usersWhite from '../assets/users-white.png';
+import usersBlue from '../assets/users-blue.png';
+import paymentWhite from '../assets/payment-white.png';
+import paymentBlue from '../assets/payment-blue.png';
+import hikvisionWhite from '../assets/hikvision-white.png';
+import hikvisionBlue from '../assets/hikvision-blue.png';
+import logoutIcon from '../assets/logout.png';
 
 const Menyu = () => {
-  const [activeMenu, setActiveMenu] = useState(null)
-  const navigate = useNavigate()
+  const [activeMenu, setActiveMenu] = useState(null);
+  const navigate = useNavigate();
 
   const toggleMenu = (menu) => {
-    if (activeMenu === menu) {
-      setActiveMenu(null)
-    } else {
-      setActiveMenu(menu)
-    }
-  }
+    setActiveMenu(prev => (prev === menu ? null : menu));
+  };
 
   const handleLogout = () => {
-    navigate('/')
-  }
+    navigate('/');
+  };
 
   return (
     <div className={menustyle.menu}>
       <div className={menustyle.container}>
         <div className={menustyle['menu-header']}>
           <h1>
-            <img className={menustyle['menu-logo']} src="./src/assets/logo.jpg" alt="logo" />
+            <img className={menustyle['menu-logo']} src={logo} alt="logo" />
           </h1>
         </div>
 
@@ -32,7 +40,7 @@ const Menyu = () => {
           <div className={activeMenu === "residents" ? menustyle['active-div'] : menustyle['inactive-div']}>
             <img
               className={menustyle.residents}
-              src={activeMenu === "residents" ? "./src/assets/residents-white.png" : "./src/assets/residents-blue.png"}
+              src={activeMenu === "residents" ? residentsWhite : residentsBlue}
               alt="residents"
             />
             <p className={activeMenu === "residents" ? menustyle['active-text'] : menustyle['inactive-text']}>
@@ -46,7 +54,7 @@ const Menyu = () => {
           <div className={activeMenu === "users" ? menustyle['active-div'] : menustyle['inactive-div']}>
             <img
               className={menustyle.users}
-              src={activeMenu === "users" ? "./src/assets/users-white.png" : "./src/assets/users-blue.png"}
+              src={activeMenu === "users" ? usersWhite : usersBlue}
               alt="users"
             />
             <p className={activeMenu === "users" ? menustyle['active-text'] : menustyle['inactive-text']}>
@@ -60,7 +68,7 @@ const Menyu = () => {
           <div className={activeMenu === "payment" ? menustyle['active-div'] : menustyle['inactive-div']}>
             <img
               className={menustyle.payment}
-              src={activeMenu === "payment" ? "./src/assets/payment-white.png" : "./src/assets/payment-blue.png"}
+              src={activeMenu === "payment" ? paymentWhite : paymentBlue}
               alt="payment"
             />
             <p className={activeMenu === "payment" ? menustyle['active-text'] : menustyle['inactive-text']}>
@@ -74,7 +82,7 @@ const Menyu = () => {
           <div className={activeMenu === "hikvision" ? menustyle['active-div'] : menustyle['inactive-div']}>
             <img
               className={menustyle.hikvision}
-              src={activeMenu === "hikvision" ? "./src/assets/hikvision-white.png" : "./src/assets/hikvision-blue.png"}
+              src={activeMenu === "hikvision" ? hikvisionWhite : hikvisionBlue}
               alt="hikvision"
             />
             <p className={activeMenu === "hikvision" ? menustyle['active-text'] : menustyle['inactive-text']}>
@@ -82,22 +90,22 @@ const Menyu = () => {
             </p>
           </div>
         </div>
-        {/* Logout düyməsi */}
+
+        {/* Logout */}
         <div>
           <button className={menustyle['log-out']} onClick={handleLogout}>
             Log out
-            <img className={menustyle['log-out-img']} src="./src/assets/logout.png" alt="log out" />
+            <img className={menustyle['log-out-img']} src={logoutIcon} alt="log out" />
           </button>
         </div>
       </div>
 
-      {/* ƏN VACİBİ: Burada Outlet lazımdır */}
+      {/* Content outlet */}
       <div className={menustyle['content']}>
         <Outlet />
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default Menyu
+export default Menyu;
