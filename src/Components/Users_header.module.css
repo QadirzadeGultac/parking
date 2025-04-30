@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+/* input[type="checkbox"] {
+    -webkit-appearance: none;
+    position: relative;
+    background-color: red;
+    width: 75px;
+    height: 25px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.7s ease;
+  }
+  
+  input[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    width: 27px;
+    height: 27px;
+    background-color: #fff;
+    border-radius: 20px;
+    transform: scale(0.8);
+    transition: all 0.7s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  input[type="checkbox"]:checked::before {
+    background-color: #fff;
+    left: 68px;
+  }
+  
+  input[type="checkbox"]:checked {
+    background-color: green;
+  }
+  .users-group-four{
+    border: none;
+  }
+  .users-group-four:hover{
+    border: none;
+  }
+  .users-modal-content {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-areas:
+        "one"
+        "group1"
+        "group2"
+        "group3"
+        "group4"
+        "group5"
+        "add";
+        gap: 15px;
+    padding-bottom: 10px;
+}
+.users-one {
+  border: 1px solid #14567D;
+    width: 238px;
+    grid-area: one;
+}
+.users-one input{
+  width: 200px;
+}
+.users-group-one {
+  border: 1px solid #14567D;
+  width: 238px;
+  grid-area: group1;
+}
+.users-group-one input{
+  width: 200px;
+}
+.users-group-two input{
+  width: 200px;
+}
+.users-group-three input{
+  width: 200px;
+}
+.users-group-five input{
+  width: 200px;
+}
+.users-group-two {
+  border: 1px solid #14567D;
+  width: 238px;
+  grid-area: group2;
+}
+.users-group-three {
+  border: 1px solid #14567D;
+  width: 238px;
+  grid-area: group3;
+}
+.users-custom-modal .ant-modal-title {
+  font-size: 20px;
+  color: #14567D !important;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.users-add {
+  text-align: center;
+  width: 265px;
+} */
+.users-header-search{
+  display: flex;
+  gap: 10px;
+}
+.users-header{
+  display: flex;
+  justify-content: flex-end;
+}
+.search-button{
+  font-family: "Merriweather", serif;
+  height: 40px;
+  width: 90px;
+  display: flex;
+  font-size: 1rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

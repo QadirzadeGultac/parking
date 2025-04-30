@@ -1,0 +1,21 @@
+.payment-header-container{
+      margin-top: 20px;
+      
+}
+.payment-header-main{
+    display: flex;
+    justify-content: space-between;
+}
+.new-payment{
+    width: 100px;
+    height: 40px;
+}
+.payment-one-group{
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+}
+.payment-search{
+    width: 70px;
+    height: 40px;
+}

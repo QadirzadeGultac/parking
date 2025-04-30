@@ -1,0 +1,27 @@
+.hikvision-header-container{
+    margin-top: 20px;
+    margin-left: 40px;
+    display: flex;
+    gap: 30px;
+    margin-bottom: 10px;
+}
+.hikvision-header-main{
+  display: flex;
+  justify-content: space-between;
+}
+.new-hikvision{
+  width: 100px;
+  height: 40px;
+}
+.hikvision-one-group{
+  display: flex;
+  gap: 20px;
+}
+.hikvision-search{
+  width: 70px;
+  height: 40px;
+}
+.search-button{
+  width: 70px;
+  height: 40px;
+}

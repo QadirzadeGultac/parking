@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+   /* Cedvəl konteyneri */
+.residents-main {
+    width: 83vw;
+    height: 650px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
+    overflow: hidden;
+  }
+  
+  /* Scroll yalnız tbody-yə */
+  .residents-main table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .residents-main thead, tbody {
+    display: block;
+  }
+  
+  /* Thead sabit qalacaq */
+  .residents-main thead {
+    width: 100%;
+  }
+  
+  .residents-main tbody {
+    max-height: 500px; /* İstədiyin hündürlük */
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
+  /* Sütun enlərini sabitlə */
+  .residents-main td {
+    width: 200px; /* Sütun eni bütün tr-lərdə eyni olmalıdı */
+    box-sizing: border-box;
+    padding: 10px 5px;
+    text-align: start;
+    word-wrap: break-word;
+    white-space: normal;
+  }
+  
+  /* Alternativ rənglər */
+  .residents-main tbody tr:nth-child(even) {
+    background-color: #d9f9f9;
+  }
+  
+  /* Başlıq stilinə davam */
+  .residents-main th {
+    font-family: "Merriweather", serif;
+    height: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1rem !important;
+    letter-spacing: -0.5px;
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 13px 5px;
+    overflow-wrap: break-word;
+    vertical-align: middle;
+    text-align: start;
+    overflow-y: auto;
+  }  
+
+.residents-main th:first-child{
+    padding-left: 10px;
+    width: 40px;
+    padding-right: 15px;
+    border-top-left-radius: 10px;
+}
+.residents-main th:last-child{
+  border-top-right-radius: 10px;
+
+}
+.residents-main td:first-child{
+    padding-left: 10px;
+    width: 40px;
+}
+
+
+/* scroll style */
+.residents-main tbody::-webkit-scrollbar {
+    width: 8px;
+    /* display: none; */
+  }
+  
+  /* Scrollbar track (arxa fon hissəsi) */
+  .residents-main tbody::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  /* Scrollbar bar (görünən sürüşdürmə hissəsi) */
+  .residents-main tbody::-webkit-scrollbar-thumb {
+    background-color: #14567D;
+    border-radius: 10px;
+  }
+  
+  /* Scrollbar hover effekti */
+  .residents-main tbody::-webkit-scrollbar-thumb:hover {
+    background: #14567D;
+  }

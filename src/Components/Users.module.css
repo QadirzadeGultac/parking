@@ -1,0 +1,102 @@
+.users-main{
+    width: 83vw;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+    /* margin-right: 10px; */
+    margin-left: 20px;
+    padding-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.users-main table {
+  margin-top: 30px;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .users-main thead, tbody {
+    display: block;
+  }
+  
+  /* Thead sabit qalacaq */
+  .users-main thead {
+    width: 100%;
+  }
+  
+  .users-main tbody {
+    max-height: 500px; /* İstədiyin hündürlük */
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
+  /* Sütun enlərini sabitlə */
+  .users-main td {
+    width: 295px;  /*Sütun eni bütün tr-lərdə eyni olmalıdı */
+    box-sizing: border-box;
+    padding: 10px 5px;
+    text-align: start;
+    word-wrap: break-word;
+    white-space: normal;
+  }
+  
+  /* Alternativ rənglər */
+  .users-main tbody tr:nth-child(even) {
+    background-color: #d9f9f9;
+  }
+  
+  /* Başlıq stilinə davam */
+  .users-main th {
+    font-family: "Merriweather", serif;
+    height: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1rem !important;
+    letter-spacing: -0.5px;
+    width: 300px;
+    background-color: #f4f4f4;
+    padding: 13px 5px;
+    overflow-wrap: break-word;
+    vertical-align: middle;
+    text-align: start;
+    overflow-y: auto;
+  }  
+
+.users-main th:first-child{
+    padding-left: 10px;
+    width: 40px;
+    padding-right: 15px;
+}
+.users-main td:first-child{
+    padding-right: 15px;
+    padding-left: 10px;
+    width: 60px;
+}
+
+
+/* scroll style */
+.users-main tbody::-webkit-scrollbar {
+    width: 8px;
+    /* display: none; */
+  }
+  
+  /* Scrollbar track (arxa fon hissəsi) */
+ .users-main tbody::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  /* Scrollbar bar (görünən sürüşdürmə hissəsi) */
+  .users-main tbody::-webkit-scrollbar-thumb {
+    background-color: #14567D;
+    border-radius: 10px;
+  }
+  
+  /* Scrollbar hover effekti */
+  .users-main tbody::-webkit-scrollbar-thumb:hover {
+    background: #14567D;
+  }

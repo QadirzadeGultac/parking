@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing:content-box;
+}
+.container {
+    width: 224px;
+    height: 100vh;
+    background-color: white;
+    box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    padding: 13px;
+    padding-top: 13px;
+    flex-direction: column;
+}
+/* Logo */
+.menu-logo {
+    width: 210px;
+}
+/* Residents */
+.residents {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    
+}
+.residents-div {
+    
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: -10px;
+    margin-left: 15px;
+}
+.residents-div p{
+    width: 80px;
+    
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+/* Users */
+.users {
+    
+    width: 25px;
+    height: 25px;
+    margin-left: 3px;
+    padding: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.users-div {
+    display: flex;
+    flex-direction: row;
+    margin-left: 15px;
+    margin-bottom: -10px;
+    align-items: center;
+}
+.users-div p{
+    
+    width: 80px;
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+/* Price List */
+.payment {
+    
+    width: 25px;
+    height: 25px;
+    padding: 6px;
+    padding-left: 7.5px;
+}
+.payment-div {
+    
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    flex-direction: row;
+    margin-bottom: -10px;
+}
+.payment-div p{
+    
+    width: 120px;
+    display: flex;
+    align-items: center;
+}
+/* Permissions */
+.hikvision {
+    
+    width: 30px;
+    height: 30px;
+    padding: 4px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.hikvision-div {
+    
+    display: flex;
+    flex-direction: row;
+    margin-left: 15px;
+    align-items: center;
+    margin-bottom: -10px;
+}
+.hikvision-div p{
+    
+    width: 80px;
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+/* Calculations */
+.calculations {
+    
+    width: 26px;
+    height: 26px;
+    padding: 4px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.calculations-div {
+    
+    display: flex;
+    flex-direction: row;
+    margin-left: 15px;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: -10px;
+}
+.calculations-div p{
+    
+    width: 120px;
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+/* Report */
+.report {
+    
+    width: 29px;
+    height: 29px;
+    padding: 4px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.report-div {
+    
+    display: flex;
+    flex-direction: row;
+    margin-left: 15px;
+    margin-top: 5px;
+    align-items: center;
+}
+.report-div p{
+    
+    width: 120px;
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+.menu{
+    display: flex;
+}
+.dis-none {
+    display: none;
+}
+.menu-header button {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: white;
+}
+.menu-header h1 {
+    font-stretch: condensed;
+    letter-spacing: -0.7px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #000000;
+    font-size: 1.2rem;
+    min-width: 200px;
+    font-family: "Poppins", serif;
+    font-weight: 500;
+    font-style: normal;
+}
+.active-text {
+    color: white !important;
+    padding: 5px;
+    padding-top: 10px;
+}
+.inactive-text {
+    color: black;
+    padding: 5px;
+    padding-top: 10px;
+}
+.menu-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.log-out{
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #E3F4FF;
+    gap: 15px;
+    color: #000000;
+    margin-top: 300px;
+    width: 140px;
+    margin-left: 15px;
+    border: 1px solid #E3F4FF;
+}
+.log-out-img{
+    width: 25px;
+}
+.active-div{
+    cursor: pointer;
+    display: flex;
+    background-color: #1C4A91;
+    border-radius: 10px;
+    width: 220px;
+    align-items: center;
+    margin-left: 10px;
+    flex-direction: row;
+    margin-bottom: -10px;
+}
+.active-div p{
+    font-family: "Merriweather", serif;
+}
+.inactive-div{
+    cursor: pointer;
+    display: flex;
+    background-color: none;
+    border-radius: 10px;
+    align-items: center;
+    margin-left: 10px;
+    flex-direction: row;
+    margin-bottom: -10px;
+}
+.inactive-div p{
+    font-family: "Merriweather", serif;
+}

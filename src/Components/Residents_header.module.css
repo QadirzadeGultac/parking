@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+.residents-header{
+    background-color: white;
+    width: 79vw;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding-top: 7px;
+    padding-bottom: 8px;
+    justify-content: space-between;
+}
+.users-header{
+    background-color: white;
+    width: 79vw;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding-top: 7px;
+    padding-bottom: 8px;
+    justify-content: space-between;
+}
+.input-group{
+    font-family: "Merriweather", serif;
+    border: 0.3px solid #14567D;
+    width: 165px;
+    border-radius: 7px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+}
+input{
+    border: none;
+    outline: none;
+    width: 135px;
+    padding: 5px 12px;
+    font-size: 11.5px;
+}
+button{
+    height: 2.9375rem;
+    padding: 0;
+    font-size: 1.125rem;
+    font-weight: 400;
+    border-radius: 5px;
+    border: 0.3px solid #1C4A91;
+    background-color: #1C4A91;
+    color: white;
+    font-family: 'Poppins Regular',
+}
+.search-button{
+    font-family: "Merriweather", serif;
+    height: 40px;
+    width: 90px;
+    display: flex;
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.new-goods{
+    font-family: "Merriweather", serif;
+    height: 35px;
+    width: 140px !important;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.add-button {
+    background-color: #14567D;
+    color: #FFFFFF !important;
+    width: 100%;
+    height: 40px;
+    padding: 10px 24px;
+    font-size: 1.125rem;
+    max-width: 163px;
+    background: #14567D;
+    line-height: 1.5rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.modal-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+        "one one one"
+        "group1 group2 group3"
+        "group4 group5 add";
+    gap: 15px;
+    padding-bottom: 10px;
+}
+
+.add {
+    text-align: center;
+    width: 265px;
+}
+
+.custom-modal .ant-modal-title {
+    font-size: 20px;
+    color: #14567D !important;
+    font-weight: 600;
+    line-height: 1.4;
+}
+.one {
+    width: 815px;
+    grid-area: one;
+}
+.one input{
+    width: 700px;
+}
+.group-one {
+    width: 238px;
+    grid-area: group1;
+}
+.group-one input{
+    width: 200px;
+}
+.group-two input{
+    width: 200px;
+}
+.group-three input{
+    width: 200px;
+}
+.group-four input{
+    width: 200px;
+}
+.group-five input{
+    width: 200px;
+}
+.group-two {
+    width: 238px;
+    grid-area: group2;
+}
+.group-three {
+    width: 238px;
+    grid-area: group3;
+}
+.group-four {
+    width: 238px;
+    grid-area: group4;
+}
+.group-five {
+    width: 238px;
+    grid-area: group5;
+}
+
+/* input aktive */
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    position: relative;
+    background-color: red;
+    width: 75px;
+    height: 25px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.7s ease;
+  }
+  
+  input[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    width: 27px;
+    height: 27px;
+    background-color: #fff;
+    border-radius: 20px;
+    transform: scale(0.8);
+    transition: all 0.7s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  input[type="checkbox"]:checked::before {
+    background-color: #fff;
+    left: 68px;
+  }
+  
+  input[type="checkbox"]:checked {
+    background-color: green;
+  }
