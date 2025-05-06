@@ -36,7 +36,7 @@ const ResidentsHeader = ({ setFilters, setFilteredProducts, handleAddProduct, ha
       expiredDate,
     };
     try {
-      const data = await fetchWithToken('/resident/add',"POST", newProduct);
+      const data = await fetchWithToken('/v0/resident/add',"POST", newProduct);
       handleAddProduct({ id: products.length + 1, ...newProduct });
       setVisible(false);
       setName('');
@@ -97,8 +97,7 @@ const ResidentsHeader = ({ setFilters, setFilteredProducts, handleAddProduct, ha
           <input className={residentsHeaderStyle['input-group group-three']} type="text" placeholder="Maşın nömrəsi" value={carNumber} onChange={(e) => setCarNumber(e.target.value)} />
           <input className={residentsHeaderStyle['input-group group-four']} type="date" placeholder="Vaxt" value={expiredDate} onChange={(e) => setExpiredDate(e.target.value)} />
           <input className={residentsHeaderStyle['input-group group-five']} type="number" placeholder="Məbləğ" value={amount} onChange={(e) => setAmount(e.target.value)} />
-          <input type="checkbox" />
-          <button className={residentsHeaderStyle['add']} onClick={handleAddProductClick}>Əlavə Et</button>
+          <div className={residentsHeaderStyle['add-button-div']}><button className={residentsHeaderStyle['add']} onClick={handleAddProductClick}>Əlavə Et</button></div>
         </div>
       </Modal>
     </div>

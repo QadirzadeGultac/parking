@@ -17,35 +17,6 @@ const UsersHeader = ({ setFilters, setFilteredProducts, handleAddProduct, produc
   // Axtarış inputları üçün state
   const [searchText, setSearchText] = useState('');
 
-  // Yeni istifadəçi əlavə etmə funksiyası
-  const handleAddUserClick = async () => {
-    if (!username || !name || !mobile || !email) {
-      alert("Zəhmət olmasa bütün xanaları doldurun!");
-      return;
-    }
-    const newUser = {
-      username,
-      name,
-      mobile,
-      email,
-    };
-
-    try {
-      const data = await fetchWithToken('/auth/all-users', "POST", newUser);
-      handleAddProduct({ id: products.length + 1, ...newUser });
-      setVisible(false);
-      // Formu sıfırla
-      setUsername('');
-      setName('');
-      setMobile('');
-      setEmail('');
-      setActive(false);
-    } catch (error) {
-      console.error("Xəta baş verdi:", error);
-      alert("Məlumat göndərilərkən xəta baş verdi.");
-    }
-  };
-
   // Axtarış funksiyası
   const handleSearchClick = () => {
     const text = searchText.toLowerCase().trim();

@@ -19,22 +19,24 @@
     padding-bottom: 8px;
     justify-content: space-between;
 }
-.input-group{
+input{
+    outline: none;
+    border: 1px solid #14567D;
+    width: 275px;
+    border-radius: 7px;
+    height: 45px;
+    padding: 5px 12px;
+    font-size: 11.5px;
+}
+/* .input-group{
     font-family: "Merriweather", serif;
-    border: 0.3px solid #14567D;
+    border: 1px solid #14567D;
     width: 165px;
     border-radius: 7px;
     height: 25px;
     display: flex;
     align-items: center;
-}
-input{
-    border: none;
-    outline: none;
-    width: 135px;
-    padding: 5px 12px;
-    font-size: 11.5px;
-}
+} */
 button{
     height: 2.9375rem;
     padding: 0;
@@ -148,7 +150,7 @@ button{
 }
 
 /* input aktive */
-input[type="checkbox"] {
+/* input[type="checkbox"] {
     -webkit-appearance: none;
     position: relative;
     background-color: red;
@@ -181,4 +183,8 @@ input[type="checkbox"] {
   
   input[type="checkbox"]:checked {
     background-color: green;
-  }
+  } */
+   .add-button-div{
+    display: flex;
+    justify-content: flex-end;
+   }

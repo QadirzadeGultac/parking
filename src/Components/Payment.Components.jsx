@@ -16,7 +16,7 @@ const Payment = () => {
     console.log("Filters:", filters);  // Yoxlamaq üçün filters obyektini konsola yazdırın
     const fetchData = async () => {
       try {
-        const data = await fetchWithToken('/payment/search', 'POST', filters);
+        const data = await fetchWithToken('/v0/payment/search', 'POST', filters);
         console.log("Gələn data:", data);
         setPayment(data);
         setFilteredPayment(data);
@@ -30,7 +30,13 @@ const Payment = () => {
   
   return (
     <div className={paymentstyle["payment-main"]}>
-      <PaymentHeader filters={filters} setFilters={setFilters} />
+      <PaymentHeader
+  filters={filters}
+  setFilters={setFilters}
+  payment={payment}
+  setFilteredPayment={setFilteredPayment}
+/>
+
       <div className={paymentstyle["payment-container"]}>
         <table>
           <thead>

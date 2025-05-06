@@ -13,6 +13,7 @@
     padding: 13px;
     padding-top: 13px;
     flex-direction: column;
+    font-size: 17px;
 }
 /* Logo */
 .menu-logo {
@@ -20,15 +21,14 @@
 }
 /* Residents */
 .residents {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     padding: 5px;
     margin-top: 3px;
     margin-bottom: 3px;
     
 }
 .residents-div {
-    
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -37,7 +37,6 @@
 }
 .residents-div p{
     width: 80px;
-    
     display: flex;
     align-items: center;
     margin-top: 8px;
@@ -45,8 +44,8 @@
 /* Users */
 .users {
     
-    width: 25px;
-    height: 25px;
+    width: 33px;
+    height: 33px;
     margin-left: 3px;
     padding: 5px;
     margin-top: 3px;
@@ -69,8 +68,8 @@
 /* Price List */
 .payment {
     
-    width: 25px;
-    height: 25px;
+    width: 38px;
+    height: 38px;
     padding: 6px;
     padding-left: 7.5px;
 }
@@ -91,8 +90,8 @@
 /* Permissions */
 .hikvision {
     
-    width: 30px;
-    height: 30px;
+    width: 37px;
+    height: 37px;
     padding: 4px;
     margin-top: 3px;
     margin-bottom: 3px;

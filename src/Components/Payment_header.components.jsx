@@ -1,30 +1,33 @@
 import React, { useState } from 'react';
 import paymentHeaderStyle from './Payment_header.module.css';
 import TextField from '@mui/material/TextField';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs from 'dayjs';
 
-const PaymentHeader = ({ setFilters }) => {
+const PaymentHeader = ({ payment, setFilteredPayment }) => {
   const [plateNumber, setPlateNumber] = useState('');
-  const [dateRange, setDateRange] = useState({
-    start: null,
-    end: null,
-  });
-
-  const formatDateTime = (date, isEnd = false) => {
-    if (!date) return '';
-    const time = isEnd ? '23:59:59' : '00:00:00';
-    return `${dayjs(date).format('YYYY-MM-DD')} ${time}.000000`;
-  };
+  const [paymentDate, setPaymentDate] = useState(null);
+  const [entryTime, setEntryTime] = useState(null);
 
   const handleSearchClick = () => {
-    setFilters({
-      plateNumber: plateNumber.trim(),
-      entryTime: formatDateTime(dateRange.start),
-      paymentTime: formatDateTime(dateRange.end, true),
+    const filtered = payment.filter((item) => {
+      const plateMatch = plateNumber
+        ? item.plateNumber?.toLowerCase().includes(plateNumber.toLowerCase())
+        : true;
+
+      const entryTimeMatch = entryTime
+        ? item.entryTime?.startsWith(entryTime.format('YYYY-MM-DD'))
+        : true;
+
+      const paymentDateMatch = paymentDate
+        ? item.paymentDate?.startsWith(paymentDate.format('YYYY-MM-DD'))
+        : true;
+
+      return plateMatch && entryTimeMatch && paymentDateMatch;
     });
+
+    setFilteredPayment(filtered);
   };
 
   return (
@@ -38,25 +41,25 @@ const PaymentHeader = ({ setFilters }) => {
         onChange={(e) => setPlateNumber(e.target.value)}
       />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateTimePicker
-          label="Başlanğıc tarix"
-          value={dateRange.start}
-          onChange={(newValue) => setDateRange(prev => ({ ...prev, start: newValue }))}
-          format="DD/MM/YYYY HH:mm"
+        <DatePicker
+          label="Giriş tarix"
+          value={entryTime}
+          onChange={(newValue) => setEntryTime(newValue)}
+          format="YYYY/MM/DD"
           slotProps={{
             textField: {
               size: 'small',
-              sx: { width: 200 },
+              sx: { width: 300 },
             },
           }}
         />
       </LocalizationProvider>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateTimePicker
-          label="Bitiş tarix"
-          value={dateRange.end}
-          onChange={(newValue) => setDateRange(prev => ({ ...prev, end: newValue }))}
-          format="DD/MM/YYYY HH:mm"
+        <DatePicker
+          label="Ödəniş tarix"
+          value={paymentDate}
+          onChange={(newValue) => setPaymentDate(newValue)}
+          format="YYYY/MM/DD"
           slotProps={{
             textField: {
               size: 'small',

@@ -13,7 +13,7 @@ const Users = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchWithToken('/auth/all-users', "POST", filters);
+        const data = await fetchWithToken('/v0/auth/all-users', "POST", filters);
         console.log("istifadəçilər:", data);
         setUsers(data);
         setFilteredUsers(data);

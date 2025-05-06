@@ -16,7 +16,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${BASE_URL}/auth/login`, {
+      const response = await fetch(`https://api-park.nmtech.az/e-parking/api/v0/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

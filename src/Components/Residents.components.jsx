@@ -14,7 +14,7 @@ const Residents = () => {
     const fetchData = async () => {
       try {
         // Filtrləri serverə göndərmək üçün POST body kimi ötür
-        const data = await fetchWithToken('/resident/search',"POST", filters);
+        const data = await fetchWithToken('/v0/resident/search',"POST", filters);
         console.log("Gələn data:", data);
         setProducts(data);
         setFilteredProducts(data);
