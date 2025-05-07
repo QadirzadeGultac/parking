@@ -46,18 +46,19 @@ const Hikvision = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchWithToken('/hikvision/search', 'POST', filters);
-        setHikvision(data);
-        setFilteredHikvision(data);
-      } catch (err) {
-        console.error("Xəta:", err.message);
-      }
-    };
     fetchData();
   }, [filters]);
-
+  
+  const fetchData = async () => {
+    try {
+      const data = await fetchWithToken('/hikvision/search', 'POST', filters);
+      setHikvision(data);
+      setFilteredHikvision(data);
+    } catch (err) {
+      console.error("Xəta:", err.message);
+    }
+  };
+  
   const handlePayment = async () => {
     if (!selectedItem || !calculate || typeof calculate.amount !== "number" || calculate.amount <= 0) {
       Store.addNotification({
@@ -79,11 +80,11 @@ const Hikvision = () => {
   
       console.log("Backend cavabı:", response);
   
-      // Bu şərt boş response-u uğurlu hesab edir
       if (!response || Object.keys(response).length === 0 || response.success === true || response.status === 200) {
         setIsModalOpen(false);
         setSelectedItem(null);
         setCalculate({});
+        
         Store.addNotification({
           title: "✅ Ödəniş uğurludur!",
           message: `${carNumber} nömrəli maşın üçün ${amount} AZN ödəndi.`,
@@ -92,6 +93,8 @@ const Hikvision = () => {
           container: "bottom-right",
           dismiss: { duration: 2000, onScreen: true }
         });
+  
+        await fetchData(); // 🔥 Ödənişdən sonra cədvəli yenilə
       } else {
         Store.addNotification({
           title: "⚠️ Xəbərdarlıq",
@@ -114,6 +117,7 @@ const Hikvision = () => {
       });
     }
   };
+  
   
 
   const formatter = new Intl.DateTimeFormat('az-AZ', {
@@ -236,7 +240,6 @@ const Hikvision = () => {
           setSelectedItem(null);
           setCalculate({});
           setDropdownOpenIndex(null);
-          window.location.reload();
         }}
         footer={null}
         width={400}
