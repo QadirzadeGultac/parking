@@ -1,8 +1,7 @@
-import React, { use } from 'react';
+import React, { useEffect, useState } from 'react';
 import HikvisionHeader from './HikvisionHeader.Components';
 import hikvisionStyle from './Hikvision.module.css';
 import fetchWithToken from '../utils/fetchWithToken';
-import { useState, useEffect } from 'react';
 import { Modal } from 'antd';
 import burgerMenu from '../assets/burger-menu.png';
 import TextField from '@mui/material/TextField';
@@ -25,136 +24,97 @@ const Hikvision = () => {
     paymentStatus: ''
   });
   const [calculate, setCalculate] = useState({});
-  const [paymentData, setPaymentData] = useState({
-    carNumber: '',
-    amount: 0,
-  });
 
-  // PARKING TYPE-ı etiketi çevirən funksiya
   const getParkingTypeLabel = (type) => {
     switch (type) {
-      case 'PAID':
-        return 'Ödənildi';
-      case 'SERVICE':
-        return 'Xidməti';
-      case 'RESIDENT':
-        return 'Sakin';
-      default:
-        return type || '';
+      case 'ACTIVE': return 'Aktiv';
+      case 'PAID': return 'Ödənildi';
+      case 'SERVICE': return 'Xidməti';
+      case 'RESIDENT': return 'Sakin';
+      default: return type || '';
     }
   };
+
   const getParkingStatusLabel = (status) => {
     switch (status) {
-      case 'PAID':
-        return 'Ödənildi';
-      case 'EXPIRED':
-        return 'Müddəti keçib';
-      case 'Activ':
-        return 'Aktiv';
-      case 'NOT_NEED_PAYMENT':
-        return 'Ödəniş tələb olunmur';
-      default:
-        return status || '';
+      case 'PAID': return 'Ödənildi';
+      case 'EXPIRED': return 'Müddəti keçib';
+      case 'ACTIVE': return 'Aktiv';
+      case 'NOT_NEED_PAYMENT': return 'Ödəniş tələb olunmur';
+      default: return status || '';
     }
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchWithToken('/v0/payment/search', 'POST', filters);
-        console.log("Gələn data:", data);
+        const data = await fetchWithToken('/hikvision/search', 'POST', filters);
         setHikvision(data);
         setFilteredHikvision(data);
       } catch (err) {
         console.error("Xəta:", err.message);
       }
     };
-
     fetchData();
   }, [filters]);
 
-  useEffect(() => {
-    const fetchCalculateData = async () => {
-      if (selectedItem) {
-        try {
-          const data = await fetchWithToken('/v0/payment/calculate', 'POST', {
-            carNumber: selectedItem.plateNumber
-          });
-          console.log("Hesablama üçün gələn data:", data);
-          setCalculate(data);
-        } catch (err) {
-          console.error("Hesablama xətası:", err.message);
-        }
-      }
-    };
-
-    fetchCalculateData();
-  }, [selectedItem]);
-
   const handlePayment = async () => {
-    if (selectedItem) {
-      try {
-        const response = await fetchWithToken('/v0/payment/pay', 'POST', paymentData);
+    if (!selectedItem || !calculate || typeof calculate.amount !== "number" || calculate.amount <= 0) {
+      Store.addNotification({
+        title: "⚠️ Xəta!",
+        message: "Ödəniş üçün məlumatlar tam deyil və ya məbləğ yanlışdır.",
+        type: "danger",
+        insert: "bottom",
+        container: "bottom-right",
+        dismiss: { duration: 2000, onScreen: true }
+      });
+      return;
+    }
   
-        if (response.status === 200) {
-          setIsModalOpen(false);
+    const carNumber = selectedItem.plateNumber;
+    const amount = calculate.amount;
   
-          Store.addNotification({
-            title: "✅ Ödəniş uğurludur!",
-            message: `${selectedItem.plateNumber} nömrəli maşın üçün ${paymentData.amount} AZN ödəndi.`,
-            type: "success",
-            insert: "bottom",
-            container: "bottom-right",
-            animationIn: ["animate__animated", "animate__fadeIn"],
-            animationOut: ["animate__animated", "animate__fadeOut"],
-            dismiss: {
-              duration: 2000,
-              onScreen: true
-            }
-          });
+    try {
+      const response = await fetchWithToken(`/v0/payment/pay?carNumber=${carNumber}&amount=${amount}`, 'POST');
   
-        } else {
-          Store.addNotification({
-            title: "❌ Ödəniş xətası!",
-            message: response.message || 'Naməlum xəta baş verdi',
-            type: "danger",
-            insert: "bottom",
-            container: "bottom-right",
-            animationIn: ["animate__animated", "animate__fadeIn"],
-            animationOut: ["animate__animated", "animate__fadeOut"],
-            dismiss: {
-              duration: 2000,
-              onScreen: true
-            }
-          });
-        }
-      } catch (err) {
+      console.log("Backend cavabı:", response);
+  
+      // Bu şərt boş response-u uğurlu hesab edir
+      if (!response || Object.keys(response).length === 0 || response.success === true || response.status === 200) {
+        setIsModalOpen(false);
+        setSelectedItem(null);
+        setCalculate({});
         Store.addNotification({
-          title: "❌ Ödəniş xətası!",
-          message: err.message,
-          type: "danger",
+          title: "✅ Ödəniş uğurludur!",
+          message: `${carNumber} nömrəli maşın üçün ${amount} AZN ödəndi.`,
+          type: "success",
           insert: "bottom",
           container: "bottom-right",
-          animationIn: ["animate__animated", "animate__fadeIn"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 2000,
-            onScreen: true
-          }
+          dismiss: { duration: 2000, onScreen: true }
+        });
+      } else {
+        Store.addNotification({
+          title: "⚠️ Xəbərdarlıq",
+          message: response.message || "Naməlum xəta baş verdi.",
+          type: "warning",
+          insert: "bottom",
+          container: "bottom-right",
+          dismiss: { duration: 2000, onScreen: true }
         });
       }
+    } catch (err) {
+      console.error("❌ Ödəniş xətası:", err.message);
+      Store.addNotification({
+        title: "❌ Ödəniş xətası!",
+        message: err.message,
+        type: "danger",
+        insert: "bottom",
+        container: "bottom-right",
+        dismiss: { duration: 2000, onScreen: true }
+      });
     }
   };
   
-
-  useEffect(() => {
-    if (selectedItem) {
-      setPaymentData({
-        carNumber: selectedItem.plateNumber,
-        amount: calculate.amount,
-      });
-    }
-  }, [calculate, selectedItem]);
 
   const formatter = new Intl.DateTimeFormat('az-AZ', {
     day: '2-digit',
@@ -164,137 +124,155 @@ const Hikvision = () => {
     minute: '2-digit'
   });
 
-  useEffect(() => {
-    console.log("Ödəniş məlumatları:", paymentData);
-  }, [paymentData]);
-
-  console.log("filters:", filters);
-
   return (
-    <div>
-      <div className={hikvisionStyle['hikvision-container']}>
-        <HikvisionHeader
-          products={hikvision}
-          setFilters={setFilteredHikvision}
-        />
-
-        <div className={hikvisionStyle['hikvision-main']}>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Giriş tarixi</th>
-                <th>Çıxış tarixi</th>
-                <th>Ödəniş tarixi</th>
-                <th>Avtomobil nömrəsi</th>
-                <th>Parkovka növü</th>
-                <th>Parkovka statusu</th>
-                <th>Ödənilmiş məbləğ</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredHikvision && filteredHikvision.length > 0 ? (
-                filteredHikvision.map((product, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{product.entryTime || ""}</td>
-                    <td>{product.exitTime || ""}</td>
-                    <td>{product.paymentTime || ""}</td>
-                    <td>{product.plateNumber || ""}</td>
-                    <td>{getParkingTypeLabel(product.parkingType)}</td>
-                    <td>{getParkingStatusLabel(product.parkingStatus)}</td>
-                    <td>{product.paidAmount || ""}</td>
-                    <td>
-                      <div style={{ position: 'relative' }}>
-                        <img
-                          className={hikvisionStyle['burger-img']}
-                          src={burgerMenu}
-                          alt="burger menu"
-                          onClick={() =>
-                            setDropdownOpenIndex(dropdownOpenIndex === index ? null : index)
-                          }
-                          style={{ cursor: 'pointer' }}
-                        />
-                        {dropdownOpenIndex === index && (
-                          <ul className={hikvisionStyle['dropdown-menu']}>
-                            <li
-                              onClick={() => {
-                                setSelectedItem(product);
-                                setDropdownOpenIndex(null);
-                              }}
-                            >
-                              <img src={edit} alt="edit" />
-                              Növü Dəyiş
-                            </li>
-                            <li
-                              onClick={() => {
-                                setSelectedItem(product);
+    <div className={hikvisionStyle['hikvision-container']}>
+      <HikvisionHeader products={hikvision} setFilters={setFilteredHikvision} />
+      <div className={hikvisionStyle['hikvision-main']}>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Giriş tarixi</th>
+              <th>Çıxış tarixi</th>
+              <th>Ödəniş tarixi</th>
+              <th>Avtomobil nömrəsi</th>
+              <th>Parkovka növü</th>
+              <th>Parkovka statusu</th>
+              <th>Ödənilmiş məbləğ</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredHikvision.length > 0 ? (
+              filteredHikvision.map((product, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{product.entryTime || ""}</td>
+                  <td>{product.exitTime || ""}</td>
+                  <td>{product.paymentTime || ""}</td>
+                  <td>{product.plateNumber || ""}</td>
+                  <td>{getParkingTypeLabel(product.parkingType)}</td>
+                  <td>{getParkingStatusLabel(product.parkingStatus)}</td>
+                  <td>{product.paidAmount || ""}</td>
+                  <td>
+                    <div style={{ position: 'relative' }}>
+                      <img
+                        className={hikvisionStyle['burger-img']}
+                        src={burgerMenu}
+                        alt="menu"
+                        onClick={() => setDropdownOpenIndex(dropdownOpenIndex === index ? null : index)}
+                        style={{ cursor: 'pointer' }}
+                      />
+                      {dropdownOpenIndex === index && (
+                        <ul className={hikvisionStyle['dropdown-menu']}>
+                          <li onClick={() => {
+                            setSelectedItem(product);
+                            setDropdownOpenIndex(null);
+                          }}>
+                            <img src={edit} alt="edit" /> Növü Dəyiş
+                          </li>
+                          <li onClick={async () => {
+                            setDropdownOpenIndex(null);
+                            if (!product.plateNumber) {
+                              Store.addNotification({
+                                title: "⚠️ Məlumat çatışmır",
+                                message: "Avtomobil nömrəsi yoxdur.",
+                                type: "warning",
+                                insert: "bottom",
+                                container: "bottom-right",
+                                dismiss: { duration: 2000, onScreen: true }
+                              });
+                              return;
+                            }
+                            setSelectedItem(product);
+                            try {
+                              const calculateData = await fetchWithToken('/v0/payment/calculate', 'POST', {
+                                carNumber: product.plateNumber
+                              });
+                              if (calculateData && typeof calculateData.amount === 'number') {
+                                setCalculate(calculateData);
                                 setIsModalOpen(true);
-                                setDropdownOpenIndex(null);
-                              }}
-                            >
-                              <img src={confirmation} alt="confirmation" />
-                              Ödəniş et
-                            </li>
-                          </ul>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="14">Məlumat yoxdur</td>
+                              } else {
+                                Store.addNotification({
+                                  title: "⚠️ Xəbərdarlıq",
+                                  message: "Hesablama nəticəsi tapılmadı.",
+                                  type: "warning",
+                                  insert: "bottom",
+                                  container: "bottom-right",
+                                  dismiss: { duration: 2000, onScreen: true }
+                                });
+                              }
+                            } catch (err) {
+                              console.error("Hesablama xətası:", err.message);
+                              Store.addNotification({
+                                title: "❌ Hesablama Xətası",
+                                message: err.message,
+                                type: "danger",
+                                insert: "bottom",
+                                container: "bottom-right",
+                                dismiss: { duration: 2000, onScreen: true }
+                              });
+                            }
+                          }}>
+                            <img src={confirmation} alt="pay" /> Ödəniş et
+                          </li>
+                        </ul>
+                      )}
+                    </div>
+                  </td>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        <Modal
-          title={<div className={hikvisionStyle['custom-modal-title']}>Ödəniş et</div>}
-          open={isModalOpen}
-          onCancel={() => setIsModalOpen(false)}
-          footer={null}
-          width={400}
-          className={hikvisionStyle["custom-modal"]}
-        >
-          {selectedItem ? (
-            <>
-              <p style={{ marginLeft: "5px" }}><strong>Giriş Tarixi: </strong> {selectedItem.entryTime || ""}</p>
-              <p style={{ marginLeft: "5px" }}><strong>Cari Tarix: </strong> {formatter.format(new Date())}</p>
-
-              <TextField
-                disabled
-                style={{ marginLeft: "5px", marginBottom: "15px" }}
-                size="medium"
-                sx={{ width: 350 }}
-                id="outlined-disabled"
-                label="Avtomobil nömrəsi"
-                defaultValue={selectedItem.plateNumber || ""}
-                inputProps={{ style: { cursor: 'not-allowed' } }}
-                InputLabelProps={{ shrink: true }}
-              />
-              <TextField
-                disabled
-                style={{ marginLeft: "5px", marginBottom: "20px" }}
-                size="medium"
-                sx={{ width: 350 }}
-                id="outlined-disabled"
-                label="Ödənilmiş məbləğ"
-                value={calculate.amount}
-                inputProps={{ style: { cursor: 'not-allowed' } }}
-                InputLabelProps={{ shrink: true }}
-              />
-              <br />
-              <button className={hikvisionStyle["modal-button"]} onClick={handlePayment}>Yadda saxla</button>
-            </>
-          ) : (
-            <p>Məlumat tapılmadı</p>
-          )}
-        </Modal>
+              ))
+            ) : (
+              <tr><td colSpan="9">Məlumat yoxdur</td></tr>
+            )}
+          </tbody>
+        </table>
       </div>
+      <Modal
+        title={<div className={hikvisionStyle['custom-modal-title']}>Ödəniş et</div>}
+        open={isModalOpen}
+        onCancel={() => {
+          setIsModalOpen(false);
+          setSelectedItem(null);
+          setCalculate({});
+          setDropdownOpenIndex(null);
+          window.location.reload();
+        }}
+        footer={null}
+        width={400}
+        className={hikvisionStyle["custom-modal"]}
+      >
+        {selectedItem ? (
+          <>
+            <p><strong>Giriş Tarixi:</strong> {selectedItem.entryTime || ""}</p>
+            <p><strong>Cari Tarix:</strong> {formatter.format(new Date())}</p>
+            <TextField
+              disabled
+              label="Avtomobil nömrəsi"
+              value={selectedItem.plateNumber || ""}
+              sx={{ width: 350, mb: 2, ml: 1 }}
+              InputLabelProps={{ shrink: true }}
+              inputProps={{ style: { cursor: 'not-allowed' } }}
+            />
+            <TextField
+              disabled
+              label="Ödəniləcək məbləğ"
+              value={calculate.amount || 0}
+              sx={{ width: 350, mb: 3, ml: 1 }}
+              InputLabelProps={{ shrink: true }}
+              inputProps={{ style: { cursor: 'not-allowed' } }}
+            />
+            <button
+              className={hikvisionStyle["modal-button"]}
+              onClick={handlePayment}
+            >
+              Yadda saxla
+            </button>
+          </>
+        ) : (
+          <p>Məlumat tapılmadı</p>
+        )}
+      </Modal>
     </div>
   );
 };

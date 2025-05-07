@@ -222,11 +222,10 @@
     display: flex;
     background-color: #1C4A91;
     border-radius: 10px;
-    width: 220px;
+    width: 190px;
     align-items: center;
     margin-left: 10px;
     flex-direction: row;
-    margin-bottom: -10px;
 }
 .active-div p{
     font-family: "Merriweather", serif;
@@ -239,8 +238,13 @@
     align-items: center;
     margin-left: 10px;
     flex-direction: row;
-    margin-bottom: -10px;
 }
 .inactive-div p{
     font-family: "Merriweather", serif;
 }
+/* Menyu.module.css faylına əlavə et */
+a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+  

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate, Outlet } from 'react-router-dom';
+import React from 'react';
+import { NavLink, useNavigate, Outlet } from 'react-router-dom';
 import menustyle from './Menyu.module.css';
 
 // Şəkilləri import edirik
@@ -15,12 +15,7 @@ import hikvisionBlue from '../assets/hikvision-blue.png';
 import logoutIcon from '../assets/logout.png';
 
 const Menyu = () => {
-  const [activeMenu, setActiveMenu] = useState(null);
   const navigate = useNavigate();
-
-  const toggleMenu = (menu) => {
-    setActiveMenu(prev => (prev === menu ? null : menu));
-  };
 
   const handleLogout = () => {
     navigate('/');
@@ -36,68 +31,73 @@ const Menyu = () => {
         </div>
 
         {/* Sakinlər */}
-        <div className={menustyle['menu-main']} onClick={() => { toggleMenu("residents"); navigate("/dashboard/residents"); }}>
-          <div className={activeMenu === "residents" ? menustyle['active-div'] : menustyle['inactive-div']}>
-            <img
-              className={menustyle.residents}
-              src={activeMenu === "residents" ? residentsWhite : residentsBlue}
-              alt="residents"
-            />
-            <p className={activeMenu === "residents" ? menustyle['active-text'] : menustyle['inactive-text']}>
-              Sakinlər
-            </p>
-          </div>
-        </div>
+        {/* ✅ Doğru NavLink istifadəsi */}
+        <NavLink to="/dashboard/residents">
+          {({ isActive }) => (
+            <div className={isActive ? menustyle['active-div'] : menustyle['inactive-div']}>
+              <img
+                className={menustyle.residents}
+                src={isActive ? residentsWhite : residentsBlue}
+                alt="residents"
+              />
+              <p className={isActive ? menustyle['active-text'] : menustyle['inactive-text']}>
+                Sakinlər
+              </p>
+            </div>
+          )}
+        </NavLink>
 
-        {/* İstifadəçilər */}
-        <div className={menustyle['menu-main']} onClick={() => { toggleMenu("users"); navigate("/dashboard/users"); }}>
-          <div className={activeMenu === "users" ? menustyle['active-div'] : menustyle['inactive-div']}>
-            <img
-              className={menustyle.users}
-              src={activeMenu === "users" ? usersWhite : usersBlue}
-              alt="users"
-            />
-            <p className={activeMenu === "users" ? menustyle['active-text'] : menustyle['inactive-text']}>
-              İstifadəçilər
-            </p>
-          </div>
-        </div>
+        <NavLink to="/dashboard/users">
+          {({ isActive }) => (
+            <div className={isActive ? menustyle['active-div'] : menustyle['inactive-div']}>
+              <img
+                className={menustyle.users}
+                src={isActive ? usersWhite : usersBlue}
+                alt="users"
+              />
+              <p className={isActive ? menustyle['active-text'] : menustyle['inactive-text']}>
+                İstifadəçilər
+              </p>
+            </div>
+          )}
+        </NavLink>
 
-        {/* Ödənişlər */}
-        <div className={menustyle['menu-main']} onClick={() => { toggleMenu("payment"); navigate("/dashboard/payment"); }}>
-          <div className={activeMenu === "payment" ? menustyle['active-div'] : menustyle['inactive-div']}>
-            <img
-              className={menustyle.payment}
-              src={activeMenu === "payment" ? paymentWhite : paymentBlue}
-              alt="payment"
-            />
-            <p className={activeMenu === "payment" ? menustyle['active-text'] : menustyle['inactive-text']}>
-              Ödənişlər
-            </p>
-          </div>
-        </div>
+        <NavLink to="/dashboard/payment">
+          {({ isActive }) => (
+            <div className={isActive ? menustyle['active-div'] : menustyle['inactive-div']}>
+              <img
+                className={menustyle.payment}
+                src={isActive ? paymentWhite : paymentBlue}
+                alt="payment"
+              />
+              <p className={isActive ? menustyle['active-text'] : menustyle['inactive-text']}>
+                Ödənişlər
+              </p>
+            </div>
+          )}
+        </NavLink>
 
-        {/* Hikvision */}
-        <div className={menustyle['menu-main']} onClick={() => { toggleMenu("hikvision"); navigate("/dashboard/hikvision"); }}>
-          <div className={activeMenu === "hikvision" ? menustyle['active-div'] : menustyle['inactive-div']}>
-            <img
-              className={menustyle.hikvision}
-              src={activeMenu === "hikvision" ? hikvisionWhite : hikvisionBlue}
-              alt="hikvision"
-            />
-            <p className={activeMenu === "hikvision" ? menustyle['active-text'] : menustyle['inactive-text']}>
-              Hikvision
-            </p>
-          </div>
-        </div>
+        <NavLink to="/dashboard/hikvision">
+          {({ isActive }) => (
+            <div className={isActive ? menustyle['active-div'] : menustyle['inactive-div']}>
+              <img
+                className={menustyle.hikvision}
+                src={isActive ? hikvisionWhite : hikvisionBlue}
+                alt="hikvision"
+              />
+              <p className={isActive ? menustyle['active-text'] : menustyle['inactive-text']}>
+                Hikvision
+              </p>
+            </div>
+          )}
+        </NavLink>
+
 
         {/* Logout */}
-        <div>
-          <button className={menustyle['log-out']} onClick={handleLogout}>
-            Log out
-            <img className={menustyle['log-out-img']} src={logoutIcon} alt="log out" />
-          </button>
-        </div>
+        <button className={menustyle['log-out']} onClick={handleLogout}>
+          Log out
+          <img className={menustyle['log-out-img']} src={logoutIcon} alt="log out" />
+        </button>
       </div>
 
       {/* Content outlet */}
