@@ -60,7 +60,6 @@ const Login = () => {
             required
           />
           <br />
-          <br />
           <input
             className={styles.password}
             type="password"
@@ -69,8 +68,6 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <br />
-          <br />
           <br />
           <button className={styles.loginbutton} type="submit">
             Daxil ol

@@ -43,11 +43,17 @@
 .name, .password{
     border: 0.5px solid #F5F5F5;
     background-color: #F5F5F5;
-    width: 360px;
-    height: 30px;
-    border-radius: 8px;
+    width: 385px;
+    height: 40px;
+    border-radius: 5px;
     font-size: 14px;
 
+}
+.name {
+    margin-bottom: 10px;
+}
+.password {
+    margin-bottom: 25px;
 }
 .loginmain img{
     width: 300px;
